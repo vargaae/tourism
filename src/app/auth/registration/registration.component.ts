@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+// import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -12,6 +13,7 @@ import { AuthService } from '../../shared/services/auth.service';
   imports: [SharedModule, FormsModule, ReactiveFormsModule],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationComponent implements OnInit {
   fb = inject(FormBuilder);
@@ -19,7 +21,7 @@ export class RegistrationComponent implements OnInit {
   auth = inject(AuthService);
   router = inject(Router);
 
-  isProgressVisible: boolean;
+  isProgressVisible: boolean = false;
 
   signupForm = this.fb.nonNullable.group({
     // displayName: new FormControl('Your Name', Validators.required),
@@ -39,12 +41,7 @@ export class RegistrationComponent implements OnInit {
   // });
 
   userLoggedIn: boolean = false;
-  errorMessage: string;
-
-  constructor() {
-    this.isProgressVisible = false;
-    this.errorMessage = '';
-  }
+  errorMessage: string | null = null;
 
   ngOnInit(): void {
     if (this.userLoggedIn) {
@@ -64,11 +61,16 @@ export class RegistrationComponent implements OnInit {
         rawForm.username ?? '',
         rawForm.password ?? ''
       )
-      .subscribe(() => {
+      .subscribe({
+        next: () => {
         this.isProgressVisible = false;
-        console.log('logging in...with the registered email');
         this.router.navigateByUrl('/hotels');
-      });
+      },
+    error: (error) => {
+      this.isProgressVisible = false;
+      this.errorMessage = error.code;
+    }
+    });
   }
 
   // registerObj: any = {

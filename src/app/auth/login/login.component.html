@@ -6,22 +6,19 @@
 <div class="login-container">
   <mat-card>
     <mat-card-title>Login</mat-card-title>
-    <br />
+    <br>
     For Testing the Application as an EndUser, you can Sign in:
-    <br />
-
-    <a (click)="loginWithGoogle()" mat-raised-button style="padding: 1rem">
-      <img
-        src="https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg"
-        style="width: 50px; height: 30px" alt="google"
-      />
-      Sign in with Google
-    </a>
-    <br />
-    <br />or
-    <br />
-    <br />
-    Sign in as an Admin User (andrasorganicshop - at - outlook.com - admin1):
+    <div class="login-button-container">
+      <a mat-fab extended (click)="loginWithGoogle()">
+        <img
+          src="https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg"
+          alt="google"
+        />
+        <span>Sign in with Google</span>
+      </a>
+    </div>
+    or Sign in with your email registration:
+    <!-- Sign in as an Admin User (andrasorganicshop - at - outlook.com - admin1): -->
 
     <form [formGroup]="loginForm" (ngSubmit)="loginUser()" type="">
       <p>

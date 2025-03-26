@@ -1,13 +1,11 @@
-Signup
-<br />
-<br />
-<a mat-raised-button color="primary" routerLink="/home">
-  <mat-icon>home</mat-icon>
-  <span>Home</span>
-</a>
 <div class="registration-container">
   <mat-card class="form-card">
     <form [formGroup]="signupForm" (ngSubmit)="signup()">
+      @if(errorMessage){
+        <mat-error>
+        {{ errorMessage }}
+      </mat-error>
+      }
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
@@ -55,9 +53,6 @@ Signup
           />
         </mat-form-field>
       </p>
-      <div if="firebaseErrorMessage != ''" class="error-style">
-        <span>{{ errorMessage }}</span>
-      </div>
 
       <a mat-raised-button color="primary" (click)="signup()">Signup</a>
     </form>

@@ -5,51 +5,64 @@ Signup
   <mat-icon>home</mat-icon>
   <span>Home</span>
 </a>
+<div class="registration-container">
+  <mat-card class="form-card">
+    <form [formGroup]="signupForm" (ngSubmit)="signup()">
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            formControlName="email"
+            type="email"
+            matInput
+            placeholder="Email"
+          />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>UserName</mat-label>
+          <input
+            autocomplete="off"
+            formControlName="username"
+            type="text"
+            matInput
+            placeholder="username"
+          />
+        </mat-form-field>
+      </p>
+      <!-- <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input
+            autocomplete="off"
+            formControlName="displayName"
+            type="text"
+            matInput
+            placeholder="Display Name"
+          />
+        </mat-form-field>
+      </p> -->
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            autocomplete="off"
+            formControlName="password"
+            type="password"
+            matInput
+            placeholder="Password"
+          />
+        </mat-form-field>
+      </p>
+      <div if="firebaseErrorMessage != ''" class="error-style">
+        <span>{{ errorMessage }}</span>
+      </div>
 
-<mat-card class="form-card">
-  <form [formGroup]="signupForm" (ngSubmit)="signup()">
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Full Name</mat-label>
-        <input
-          autocomplete="off"
-          formControlName="displayName"
-          type="text"
-          matInput
-          placeholder="Display Name"
-        />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input
-          formControlName="email"
-          type="email"
-          matInput
-          placeholder="Email"
-        />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input
-          autocomplete="off"
-          formControlName="password"
-          type="password"
-          matInput
-          placeholder="Password"
-        />
-      </mat-form-field>
-    </p>
-    <div if="firebaseErrorMessage != ''" class="error-style">
-      <span>{{ errorMessage }}</span>
-    </div>
-
-    <a mat-raised-button color="primary">Signup</a>
-  </form>
-</mat-card>
+      <a mat-raised-button color="primary" (click)="signup()">Signup</a>
+    </form>
+  </mat-card>
+</div>
 
 <div
   class="progressIndicator"
@@ -61,4 +74,3 @@ Signup
     mode="indeterminate"
   ></mat-progress-spinner>
 </div>
-

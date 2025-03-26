@@ -5,6 +5,7 @@ import { SharedModule } from '../../shared/shared.module';
 // import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent{
 // export class LoginComponent implements OnInit {
   fb = inject(FormBuilder);
   http = inject(HttpClient);
+  auth = inject(AuthService);
   router = inject(Router);
 
   loginForm = this.fb.nonNullable.group({
@@ -26,7 +28,6 @@ export class LoginComponent{
   isProgressVisible: boolean;
   firebaseErrorMessage: string;
 
-  // auth = inject(AuthService);
 
   constructor(
   ) {

@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
-// import { AngularFireAuth } from '@angular/fire/auth';
+import { inject, Injectable } from '@angular/core';
+import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
 // import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 // import * as firebase from 'firebase/app';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 // import { AppUser } from '../models/app-user';
-// import { User } from '../models/user';
+import { User } from '../models/user.interface';
 // import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  firebaseAuth = inject(Auth);
   userLoggedIn: boolean;
   authState: any;
   // user$: Observable<firebase.default.User>;
 
+// TODO: CleanUP:
   constructor(
     // private userService: UserService,
     private route: ActivatedRoute,
@@ -29,13 +31,43 @@ export class AuthService {
 
     this.userLoggedIn = false;
 
-    // this.afAuth.onAuthStateChanged((user) => {
-    //   if (user) {
-    //     this.userLoggedIn = true;
-    //   } else {
-    //     this.userLoggedIn = false;
-    //   }
-    // });
+    this.firebaseAuth.onAuthStateChanged((user) => {
+      if (user) {
+        this.userLoggedIn = true;
+      } else {
+        this.userLoggedIn = false;
+      }
+    });
+  }
+
+  signupUser(email: string, username: string, password: string): Observable<void> {
+    // Promise<any>
+    // TODO: Note Observable<void> means we don't expect get back a User
+    // Firebase doesn't return for us observables, it returns for us promises
+    const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password)
+    // return this.firebaseAuth
+    //   .createUserWithEmailAndPassword(user.email, user.password)
+  //     .then((result) => {
+    .then(response => updateProfile(response.user, { displayName: username })) 
+    // TODO: add photo: { displayName: username, photoURL: photoURL })) 
+    return from(promise)
+
+  //       let emailLower = user.email.toLowerCase();
+
+  //       this.afs.doc('/users/' + emailLower).set({
+  //         accountType: 'endUser',
+  //         displayName: user.displayName,
+  //         displayName_lower: user.displayName.toLowerCase(),
+  //         email: user.email,
+  //         email_lower: emailLower,
+  //       });
+
+  //       result.user.sendEmailVerification();
+  //     })
+      // .catch((error) => {
+      //   console.log('Auth Service: signup error', error);
+      //   if (error.code) return { isValid: false, message: error.message };
+      // });
   }
 
   // loginWithGoogle() {
@@ -71,28 +103,6 @@ export class AuthService {
   //       console.log('Auth Service: login error...');
   //       console.log('error code', error.code);
   //       console.log('error', error);
-  //       if (error.code) return { isValid: false, message: error.message };
-  //     });
-  // }
-
-  // signupUser(user: any): Promise<any> {
-  //   return this.afAuth
-  //     .createUserWithEmailAndPassword(user.email, user.password)
-  //     .then((result) => {
-  //       let emailLower = user.email.toLowerCase();
-
-  //       this.afs.doc('/users/' + emailLower).set({
-  //         accountType: 'endUser',
-  //         displayName: user.displayName,
-  //         displayName_lower: user.displayName.toLowerCase(),
-  //         email: user.email,
-  //         email_lower: emailLower,
-  //       });
-
-  //       result.user.sendEmailVerification();
-  //     })
-  //     .catch((error) => {
-  //       console.log('Auth Service: signup error', error);
   //       if (error.code) return { isValid: false, message: error.message };
   //     });
   // }

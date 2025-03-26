@@ -1,0 +1,68 @@
+<button mat-raised-button color="primary" routerLink="/home">
+  <mat-icon>home</mat-icon>
+  <span>Home</span>
+</button>
+
+<div>
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <br />
+    For Testing the Application as an EndUser, you can Sign in:
+    <br />
+
+    <a (click)="loginWithGoogle()" mat-raised-button style="padding: 1rem">
+      <img
+        src="https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg"
+        style="width: 50px; height: 30px" alt="google"
+      />
+      Sign in with Google
+    </a>
+    <br />
+    <br />or
+    <br />
+    <br />
+    Sign in as an Admin User (andrasorganicshop - at - outlook.com - admin1):
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser()" type="">
+      <p>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input
+            autocomplete="off"
+            formControlName="email"
+            type="email"
+            matInput
+            placeholder="andrasorganicshop@outlook.com"
+            value="andrasorganicshop@outlook.com"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+            autocomplete="off"
+            formControlName="password"
+            type="password"
+            matInput
+            placeholder="admin1"
+            value="admin1"
+          />
+        </mat-form-field>
+      </p>
+      <!-- <div *ngIf="firebaseErrorMessage != ''" class="error-style">
+        <span>{{ firebaseErrorMessage }}</span>
+      </div> -->
+
+      <a mat-raised-button color="primary">Login</a>
+    </form>
+  </mat-card>
+</div>
+<div
+  class="progressIndicator"
+  [style.display]="isProgressVisible ? 'inline' : 'none'"
+>
+  <mat-progress-spinner
+    class="example-margin"
+    color="primary"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+</div>

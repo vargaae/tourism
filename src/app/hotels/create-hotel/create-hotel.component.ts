@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-create-hotel',
   imports: [],
   templateUrl: './create-hotel.component.html',
-  styleUrl: './create-hotel.component.scss'
+  styleUrl: './create-hotel.component.scss',
 })
 export class CreateHotelComponent {
-
+  isListView: boolean = false;
 }

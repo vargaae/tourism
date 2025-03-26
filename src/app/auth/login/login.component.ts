@@ -1,6 +1,11 @@
-import { Component, inject } from '@angular/core';
-// import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 // import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
@@ -13,8 +18,7 @@ import { AuthService } from '../../shared/services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent{
-// export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit {
   fb = inject(FormBuilder);
   http = inject(HttpClient);
   auth = inject(AuthService);
@@ -25,45 +29,34 @@ export class LoginComponent{
     password: new FormControl('', Validators.required),
   });
 
-  isProgressVisible: boolean;
-  firebaseErrorMessage: string;
+  isProgressVisible: boolean = false;
+  errorMessage: string | null = null;
 
-
-  constructor(
-  ) {
-    this.isProgressVisible = false;
-
-    this.firebaseErrorMessage = '';
-  }
-
-  // ngOnInit(): void {
+  ngOnInit(): void {
     // if (this.auth.userLoggedIn) {
     //   this.router.navigate(['/hotels']);
     // }
-  // }
+  }
 
   loginUser(): void {
-    console.log('loginForm');
-    // this.isProgressVisible = true;
+    if (this.loginForm.invalid) return;
 
-    // if (this.loginForm.invalid) return;
+    this.isProgressVisible = true;
 
-
-    // if (this.loginForm) {
-    //       this.isProgressVisible = false;
-    //       console.log('logging in...');
-    //       this.router.navigate(['/hotels']);
-    //     } 
-        // else if (result.isValid == false) {
-        //   console.log('login error', result);
-        //   this.firebaseErrorMessage = result.message;
-        // }
-
-
+    const rawForm = this.loginForm.getRawValue();
+    this.auth.loginUser(rawForm.email ?? '', rawForm.password ?? '').subscribe({
+      next: () => {
+        this.isProgressVisible = false;
+        this.router.navigateByUrl('/hotels');
+      },
+      error: (error) => {
+        this.isProgressVisible = false;
+        this.errorMessage = error.message;
+      },
+    });
   }
 
   loginWithGoogle(): void {
-    console.log('loginWithGoogle');
-
+    this.auth.loginWithGoogle();
   }
 }

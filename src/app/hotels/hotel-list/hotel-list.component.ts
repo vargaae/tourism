@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { AuthService } from '../../shared/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-hotel-list',
@@ -9,10 +11,16 @@ import { SharedModule } from '../../shared/shared.module';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HotelListComponent {
+  auth = inject(AuthService);
+  // emailSignInSubscription: Subscription;
+  // googleSignInSubscription: Subscription;
+
 
   logout(): void {
     // Implement logout logic here
-    console.log('Logout');
+    this.auth.logoutUser();
+    // this.emailSignInSubscription.unsubscribe();
+    // this.googleSignInSubscription.unsubscribe();
   }
 
 }

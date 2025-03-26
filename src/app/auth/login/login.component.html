@@ -6,7 +6,7 @@
 <div class="login-container">
   <mat-card>
     <mat-card-title>Login</mat-card-title>
-    <br>
+    <br />
     For Testing the Application as an EndUser, you can Sign in:
     <div class="login-button-container">
       <a mat-fab extended (click)="loginWithGoogle()">
@@ -44,12 +44,13 @@
             value="admin1"
           />
         </mat-form-field>
+        @if(errorMessage){
+          <mat-error>
+            {{ errorMessage }}
+          </mat-error>
+          }
       </p>
-      <!-- <div *ngIf="firebaseErrorMessage != ''" class="error-style">
-        <span>{{ firebaseErrorMessage }}</span>
-      </div> -->
-
-      <a mat-raised-button color="primary">Login</a>
+      <a mat-raised-button color="primary" (click)="loginUser()">Login</a>
     </form>
   </mat-card>
 </div>

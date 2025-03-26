@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from '@angular/fire/auth';
 // import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 // import * as firebase from 'firebase/app';
@@ -15,7 +15,7 @@ import { User } from '../models/user.interface';
 })
 export class AuthService {
   firebaseAuth = inject(Auth);
-  userLoggedIn: boolean;
+  // userLoggedIn: boolean;
   authState: any;
   // user$: Observable<firebase.default.User>;
 
@@ -29,15 +29,16 @@ export class AuthService {
   ) {
     // this.user$ = afAuth.authState;
 
-    this.userLoggedIn = false;
+    // TODO: this.userLoggedIn
+    // this.userLoggedIn = false;
 
-    this.firebaseAuth.onAuthStateChanged((user) => {
-      if (user) {
-        this.userLoggedIn = true;
-      } else {
-        this.userLoggedIn = false;
-      }
-    });
+    // this.firebaseAuth.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     this.userLoggedIn = true;
+    //   } else {
+    //     this.userLoggedIn = false;
+    //   }
+    // });
   }
 
   signupUser(email: string, username: string, password: string): Observable<void> {
@@ -70,18 +71,19 @@ export class AuthService {
       // });
   }
 
-  // loginWithGoogle() {
-  //   let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-  //   localStorage.setItem('returnUrl', returnUrl);
-  //   this.afAuth.signInWithRedirect(
-  //     new firebase.default.auth.GoogleAuthProvider()
-  //   );
-  // }
+  loginWithGoogle() {
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl', returnUrl);
+    this.firebaseAuth
+    // .signInWithRedirect(
+    //   new firebase.default.auth.GoogleAuthProvider()
+    // );
+  }
 
-  // logout(): void {
-  //   this.afAuth.signOut();
-  //   this.router.navigate(['/login']);
-  // }
+  logout(): void {
+    this.firebaseAuth.signOut();
+    this.router.navigate(['/login']);
+  }
 
   // get appUser$(): Observable<AppUser> {
   //   return this.user$.pipe(
@@ -93,22 +95,26 @@ export class AuthService {
   //   );
   // }
 
+  loginUser(email: string, password: string): Observable<void> {
   // loginUser(email: string, password: string): Promise<any> {
-  //   return this.afAuth
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(() => {
-  //       console.log('Auth Service: loginUser: success');
-  //     })
-  //     .catch((error) => {
-  //       console.log('Auth Service: login error...');
-  //       console.log('error code', error.code);
-  //       console.log('error', error);
-  //       if (error.code) return { isValid: false, message: error.message };
-  //     });
-  // }
+    const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password)
+
+    // return this.firebaseAuth
+    //   .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        // console.log('Auth Service: loginUser: success');
+      })
+      // .catch((error) => {
+      //   console.log('Auth Service: login error...');
+      //   console.log('error code', error.code);
+      //   console.log('error', error);
+      //   if (error.code) return { isValid: false, message: error.message };
+      // });
+    return from(promise)
+  }
 
   // resetPassword(email: string): Promise<any> {
-  //   return this.afAuth
+  //   return this.firebaseAuth
   //     .sendPasswordResetEmail(email)
   //     .then(() => {
   //       console.log('Auth Service: reset password success');
@@ -122,7 +128,7 @@ export class AuthService {
   // }
 
   // async resendVerificationEmail() {
-  //   return (await this.afAuth.currentUser)
+  //   return (await this.firebaseAuth.currentUser)
   //     .sendEmailVerification()
   //     .then(() => {})
   //     .catch((error) => {
@@ -133,19 +139,19 @@ export class AuthService {
   //     });
   // }
 
-  // logoutUser(): Promise<void> {
-  //   return this.afAuth
-  //     .signOut()
-  //     .then(() => {
-  //       this.router.navigate(['/home']);
-  //     })
-  //     .catch((error) => {
-  //       console.log('Auth Service: logout error...');
-  //       console.log('error code', error.code);
-  //       console.log('error', error);
-  //       if (error.code) return error;
-  //     });
-  // }
+  logoutUser(): Promise<void> {
+    return this.firebaseAuth
+      .signOut()
+      .then(() => {
+        this.router.navigate(['/hotels']);
+      })
+      .catch((error) => {
+        console.log('Auth Service: logout error...');
+        console.log('error code', error.code);
+        console.log('error', error);
+        if (error.code) return error;
+      });
+  }
 
   // setUserInfo(payload: object) {
   //   console.log('Auth Service: saving user info...');

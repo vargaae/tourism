@@ -13,6 +13,14 @@ import { Router } from '@angular/router';
   styleUrl: './registration.component.scss',
 })
 export class RegistrationComponent implements OnInit {
+  // fb = inject(FormBuilder);
+  // http = inject(HttpClient);
+  // router = inject(Router);
+
+  // loginForm = this.fb.nonNullable.group({
+  //   email: new FormControl('', [Validators.required, Validators.email]),
+  //   password: new FormControl('', Validators.required),
+  // });
   isProgressVisible: boolean;
   
   signupForm = new FormGroup({

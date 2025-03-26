@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+// import { AngularFireAuth } from '@angular/fire/auth';
 // import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 // import * as firebase from 'firebase/app';
@@ -22,7 +22,7 @@ export class AuthService {
     // private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private afAuth: AngularFireAuth,
+    // private afAuth: AngularFireAuth,
     // private afs: AngularFirestore
   ) {
     // this.user$ = afAuth.authState;
@@ -61,19 +61,19 @@ export class AuthService {
   //   );
   // }
 
-  loginUser(email: string, password: string): Promise<any> {
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('Auth Service: loginUser: success');
-      })
-      .catch((error) => {
-        console.log('Auth Service: login error...');
-        console.log('error code', error.code);
-        console.log('error', error);
-        if (error.code) return { isValid: false, message: error.message };
-      });
-  }
+  // loginUser(email: string, password: string): Promise<any> {
+  //   return this.afAuth
+  //     .signInWithEmailAndPassword(email, password)
+  //     .then(() => {
+  //       console.log('Auth Service: loginUser: success');
+  //     })
+  //     .catch((error) => {
+  //       console.log('Auth Service: login error...');
+  //       console.log('error code', error.code);
+  //       console.log('error', error);
+  //       if (error.code) return { isValid: false, message: error.message };
+  //     });
+  // }
 
   // signupUser(user: any): Promise<any> {
   //   return this.afAuth

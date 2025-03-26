@@ -1,59 +1,129 @@
-# Tourism
+# Tourism App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+This is a tourism web application built with **Angular v19.2.4**. The application allows users to explore various tourist destinations, view detailed information about places, and plan their trips efficiently.
 
-## Development server
+## Table of Contents
 
-To start a local development server, run:
+- [Features](#features)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Development](#development)
+- [Folder Structure](#folder-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- Browse tourist destinations and categories
+- View detailed information about places (description, images, reviews)
+- Search and filter destinations
+- Save favorite destinations
+- Responsive design for mobile and desktop
+- Interactive map with location markers
+- Multi-language support
+
+## Technologies
+
+- [Angular v19](https://angular.io/) - Frontend framework
+- [RxJS](https://rxjs.dev/) - Reactive programming
+- [TypeScript](https://www.typescriptlang.org/) - Strongly typed programming language
+- [Angular Material](https://material.angular.io/) - UI component library
+- [Leaflet](https://leafletjs.com/) - Map integration
+- [Firebase](https://firebase.google.com/) - Backend as a service (optional)
+
+## Installation
+
+To run this application locally, you need to have [Node.js](https://nodejs.org/) installed.
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/tourism-app.git
+   cd tourism-app
+   ```
+
+2. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+
+   - Create an `.env` file in the root directory and configure the necessary API keys for map services or Firebase (if using).
+   
+   Example `.env`:
+
+   ```bash
+   API_KEY=your-map-api-key
+   FIREBASE_API_KEY=your-firebase-api-key
+   ```
+
+## Running the Application
+
+After installing the dependencies, you can start the development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open your browser and navigate to `http://localhost:4200`. The app will automatically reload if you make any changes to the source files.
 
-## Code scaffolding
+## Development
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Running Unit Tests
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+You can run unit tests using the following command:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+### Running End-to-End Tests
 
-For end-to-end (e2e) testing, run:
+To run end-to-end tests, use:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Linting
 
-## Additional Resources
+Ensure code quality by running lint checks:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+ng lint
+```
+
+## Folder Structure
+
+The key folders of the project are as follows:
+
+```
+src/
+│
+├── app/                  # Main Angular app module and components
+│   ├── components/       # Reusable components (e.g., destination-card, map)
+│   ├── services/         # Services for API interactions
+│   ├── models/           # TypeScript interfaces and models
+│   └── pages/            # Page components (e.g., home, destination details)
+│
+├── assets/               # Static assets such as images and icons
+├── environments/         # Environment configurations (development, production)
+│
+└── styles/               # Global styles and theme files
+```
+
+## Contributing
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch with a descriptive name.
+3. Make your changes and commit them with clear messages.
+4. Push your branch and create a pull request.
+
+## License
+
+This project is licensed under the MIT License.

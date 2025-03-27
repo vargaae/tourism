@@ -1,34 +1,6 @@
 <mat-tab-group>
   <mat-tab>
     <ng-template mat-tab-label>
-      <mat-icon class="example-tab-icon">login</mat-icon>
-      Login - logout
-    </ng-template>
-    <mat-card class="example-card" appearance="outlined">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Login</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      </mat-card-header>
-      <img
-        mat-card-image
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-        alt="Photo of a Shiba Inu"
-      />
-      <mat-card-content>
-        <p>
-          LOGIN IMPLEMENTATION
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button routerLink="/login">LOGIN</button>
-        <button mat-button (click)="logout()">LOGOUT</button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label>
       <mat-icon class="example-tab-icon">hotel</mat-icon>
       Hotels
     </ng-template>
@@ -36,11 +8,11 @@
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>Hotelrooms</mat-card-title>
-        <mat-card-subtitle>Hotel 1</mat-card-subtitle>
+        <mat-card-subtitle>Hotel First</mat-card-subtitle>
       </mat-card-header>
       <img
         mat-card-image
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        src="https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg"
         alt="Photo of a Shiba Inu"
       />
       <mat-card-content>
@@ -59,32 +31,63 @@
 
   <mat-tab>
     <ng-template mat-tab-label>
-      <mat-icon class="example-tab-icon">profile</mat-icon>
+      <mat-icon class="example-tab-icon">dashboard</mat-icon>
       Profile
     </ng-template>
 
     <mat-card class="example-card" appearance="outlined">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        <mat-card-title>USER PROFILE</mat-card-title>
+        <mat-card-subtitle>Dashboard</mat-card-subtitle>
       </mat-card-header>
       <img
         mat-card-image
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        src="https://media.istockphoto.com/id/1447180306/photo/woman-enjoys-magnificent-view-from-hotel-window.jpg?s=612x612&w=0&k=20&c=tYi7l7OmNUrceo6neAHBpqrk9uVO4UTRjodqpOHeIyA="
         alt="Photo of a Shiba Inu"
       />
       <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz
-          breeds of dog from Japan. A small, agile dog that copes very well with
-          mountainous terrain, the Shiba Inu was originally bred for hunting.
-        </p>
+        <app-dashboard />
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
+    </mat-card>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">search</mat-icon>
+      SEARCH ACCOMODATION
+    </ng-template>
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Search</mat-card-title>
+        <mat-card-subtitle>Accomodation</mat-card-subtitle>
+      </mat-card-header>
+      <img
+        mat-card-image
+        src="https://imgservice.rentbyowner.com/1920x775/static/common/property-type-location/vacation-rentals.jpg"
+        alt="Photo of a Shiba Inu"
+      />
+      <mat-card-content>
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Search for a City</mat-label>
+            <input
+              type="text"
+              placeholder="Pick one"
+              aria-label="Search City"
+              matInput
+              [formControl]="myControl"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              @for (option of filteredOptions | async; track option) {
+              <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
     </mat-card>
   </mat-tab>
 </mat-tab-group>

@@ -1,12 +1,19 @@
-import { inject, Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { inject, Injectable, signal } from '@angular/core';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithEmailAndPassword,
+  user,
+  signOut,
+} from '@angular/fire/auth';
 // import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 // import * as firebase from 'firebase/app';
 import { from, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-// import { AppUser } from '../models/app-user';
+import { AppUser } from '../models/app-user';
 import { User } from '../models/user.interface';
 // import { UserService } from './user.service';
 
@@ -15,43 +22,54 @@ import { User } from '../models/user.interface';
 })
 export class AuthService {
   firebaseAuth = inject(Auth);
+  // router = inject(Router);
   // userLoggedIn: boolean;
   authState: any;
+  user$ = user(this.firebaseAuth); // it contains the user's data
   // user$: Observable<firebase.default.User>;
+  currentUserSig = signal<User | null | undefined>(undefined);
 
-// TODO: CleanUP:
+  // TODO: CleanUP:
   constructor(
-    // private userService: UserService,
+    //   // private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router,
-    // private afAuth: AngularFireAuth,
-    // private afs: AngularFirestore
-  ) {
-    // this.user$ = afAuth.authState;
-
-    // TODO: this.userLoggedIn
-    // this.userLoggedIn = false;
-
-    // this.firebaseAuth.onAuthStateChanged((user) => {
-    //   if (user) {
-    //     this.userLoggedIn = true;
-    //   } else {
-    //     this.userLoggedIn = false;
-    //   }
-    // });
+    private router: Router
+  ) //   // private afAuth: AngularFireAuth,
+  //   // private afs: AngularFirestore
+  {
+    //   // this.user$ = afAuth.authState;
+    //   // TODO: this.userLoggedIn
+    //   // this.userLoggedIn = false;
+    //   // this.firebaseAuth.onAuthStateChanged((user) => {
+    //   //   if (user) {
+    //   //     this.userLoggedIn = true;
+    //   //   } else {
+    //   //     this.userLoggedIn = false;
+    //   //   }
+    //   // });
   }
 
-  signupUser(email: string, username: string, password: string): Observable<void> {
+  signupUser(
+    email: string,
+    username: string,
+    password: string
+  ): Observable<void> {
     // Promise<any>
     // TODO: Note Observable<void> means we don't expect get back a User
     // Firebase doesn't return for us observables, it returns for us promises
-    const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password)
-    // return this.firebaseAuth
-    //   .createUserWithEmailAndPassword(user.email, user.password)
+    const promise = createUserWithEmailAndPassword(
+      this.firebaseAuth,
+      email,
+      password
+    ).then((response) =>
+      updateProfile(response.user, { displayName: username })
+    );
+    return from(promise);
+  }
+  // return this.firebaseAuth
+  //   .createUserWithEmailAndPassword(user.email, user.password)
   //     .then((result) => {
-    .then(response => updateProfile(response.user, { displayName: username })) 
-    // TODO: add photo: { displayName: username, photoURL: photoURL })) 
-    return from(promise)
+  // TODO: add photo: { displayName: username, photoURL: photoURL }))
 
   //       let emailLower = user.email.toLowerCase();
 
@@ -65,24 +83,18 @@ export class AuthService {
 
   //       result.user.sendEmailVerification();
   //     })
-      // .catch((error) => {
-      //   console.log('Auth Service: signup error', error);
-      //   if (error.code) return { isValid: false, message: error.message };
-      // });
-  }
+  // .catch((error) => {
+  //   console.log('Auth Service: signup error', error);
+  //   if (error.code) return { isValid: false, message: error.message };
+  // });
 
   loginWithGoogle() {
     let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
-    this.firebaseAuth
+    this.firebaseAuth;
     // .signInWithRedirect(
     //   new firebase.default.auth.GoogleAuthProvider()
     // );
-  }
-
-  logout(): void {
-    this.firebaseAuth.signOut();
-    this.router.navigate(['/login']);
   }
 
   // get appUser$(): Observable<AppUser> {
@@ -96,21 +108,44 @@ export class AuthService {
   // }
 
   loginUser(email: string, password: string): Observable<void> {
-  // loginUser(email: string, password: string): Promise<any> {
-    const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password)
-
-    // return this.firebaseAuth
-    //   .signInWithEmailAndPassword(email, password)
+    // loginUser(email: string, password: string): Promise<any> {
+    const promise = signInWithEmailAndPassword(
+      this.firebaseAuth,
+      email,
+      password
+    )
+      // return this.firebaseAuth
+      //   .signInWithEmailAndPassword(email, password)
       .then(() => {
         // console.log('Auth Service: loginUser: success');
+      });
+    return from(promise);
+  }
+  // .catch((error) => {
+  //   console.log('Auth Service: login error...');
+  //   console.log('error code', error.code);
+  //   console.log('error', error);
+  //   if (error.code) return { isValid: false, message: error.message };
+  // });
+
+  logout(): Observable<void> {
+    const promise = signOut(this.firebaseAuth);
+    this.router.navigate(['/login']);
+    return from(promise);
+  }
+
+  logoutUser(): Promise<void> {
+    return this.firebaseAuth
+      .signOut()
+      .then(() => {
+        this.router.navigate(['/hotels']);
       })
-      // .catch((error) => {
-      //   console.log('Auth Service: login error...');
-      //   console.log('error code', error.code);
-      //   console.log('error', error);
-      //   if (error.code) return { isValid: false, message: error.message };
-      // });
-    return from(promise)
+      .catch((error) => {
+        console.log('Auth Service: logout error...');
+        console.log('error code', error.code);
+        console.log('error', error);
+        if (error.code) return error;
+      });
   }
 
   // resetPassword(email: string): Promise<any> {
@@ -138,20 +173,6 @@ export class AuthService {
   //       if (error.code) return error;
   //     });
   // }
-
-  logoutUser(): Promise<void> {
-    return this.firebaseAuth
-      .signOut()
-      .then(() => {
-        this.router.navigate(['/hotels']);
-      })
-      .catch((error) => {
-        console.log('Auth Service: logout error...');
-        console.log('error code', error.code);
-        console.log('error', error);
-        if (error.code) return error;
-      });
-  }
 
   // setUserInfo(payload: object) {
   //   console.log('Auth Service: saving user info...');

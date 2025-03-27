@@ -51,33 +51,6 @@
     color: var(--gray-700);
   }
   
-  nav {
-    display: flex;
-    justify-content: center;
-    margin: 1rem auto;
-    padding: 1rem;
-    border-radius: 6px;
-    width: 80%;
-    margin-bottom: 0.3rem;
-    gap: 1rem;
-    background-color: #4682B4;
-    color: white;
-    
-    .nav-container {
-      display: flex;
-      justify-content: flex-end;
-      padding: 0.1rem;
-      width: 100%;
-      margin-bottom: 0.3rem;
-      gap: 1rem;
-      background-color: #4682B4;
-    }
-    
-    .nav-button-container {
-      display: flex;
-    }
-  }
-  
   main {
     width: 100%;
     min-height: 70%;

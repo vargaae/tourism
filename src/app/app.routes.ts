@@ -8,6 +8,16 @@ export const routes: Routes = [
       import('./core/home/home.component').then((mod) => mod.HomeComponent),
   },
   {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./auth/dashboard/dashboard.component').then((mod) => mod.DashboardComponent),
+  },
+  {
+    path: 'user',
+    loadComponent: () =>
+      import('./auth/user/user.component').then((mod) => mod.UserComponent),
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./auth/login/login.component').then((mod) => mod.LoginComponent),

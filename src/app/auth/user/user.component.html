@@ -1,0 +1,18 @@
+<p>The user's role is {{ roleTitle }}</p>
+<p>The user's logins are {{ count() }}</p>
+<mat-card-actions>
+  <a mat-button (click)="addItem()">Add Item</a>
+  @if (auth.currentUserSig() == null) {
+  <div class="nav-button-container">
+    <a mat-button routerLink="/registration">
+      <mat-icon>login</mat-icon>
+      Registration
+    </a>
+  </div>
+  <a mat-button routerLink="/login">Login</a>
+
+  } @if (auth.currentUserSig()) {
+  <a mat-button (click)="logout()">Logout</a>
+  }
+  <a mat-button (click)="onClick()">Login -> Count++</a>
+</mat-card-actions>

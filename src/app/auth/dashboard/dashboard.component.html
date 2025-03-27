@@ -1,0 +1,24 @@
+<mat-card>
+  @if (auth.currentUserSig()) {
+    <mat-list>
+      <mat-list-item>Display Name:  {{ auth.currentUserSig()?.username }}</mat-list-item>
+      <mat-list-item>Email: {{ auth.currentUserSig()?.email }}</mat-list-item>
+
+    </mat-list>
+  }
+  <!-- <mat-list *ngIf="(user | async)">
+    <mat-list-item>Account Type: {{ (user | async)?.accountType }}</mat-list-item>
+    <mat-list-item>Display Name: {{ (user | async)?.displayName }}</mat-list-item>
+    <mat-list-item>Display Name (lower): {{ (user | async)?.displayName_lower }}</mat-list-item>
+    <mat-list-item>Email: {{ (user | async)?.email }}</mat-list-item>
+    <mat-list-item>Email (lower): {{ (user | async)?.email_lower }}</mat-list-item>
+    <mat-list-item>Email Verification Status: {{ (afAuth.user | async)?.emailVerified }}</mat-list-item>
+  </mat-list> -->
+  <p>🐢 clicks on Add Item {{ items.length }}</p>
+    <app-user
+      (addItemEvent)="addItem($event)"
+      (incrementCountEvent)="onClick($event)"
+      [(count)]="initialCount"
+      roleTitle="Admin"
+    />
+</mat-card>

@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
 
   userLoggedIn: boolean = false;
 
+  // TODO: Implement logout logic here -> subscribe?
   // emailSignInSubscription: Subscription;
   // googleSignInSubscription: Subscription;
 
@@ -28,12 +29,11 @@ export class NavbarComponent implements OnInit {
         this.auth.currentUserSig.set(null);
         this.userLoggedIn = false;
       }
-      console.log(this.auth.currentUserSig());
     });
   }
 
   logout(): void {
-    // Implement logout logic here
+    // TODO: Implement logout logic here -> unsubscribe?
     this.auth.logoutUser();
     // this.emailSignInSubscription.unsubscribe();
     // this.googleSignInSubscription.unsubscribe();

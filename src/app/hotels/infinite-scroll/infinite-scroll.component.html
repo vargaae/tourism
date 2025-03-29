@@ -1,0 +1,32 @@
+@for (hotel of hotels$ | async; track hotel) {
+  <mat-card class="admin__list_card" appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar class="admin__list_header-image"></div>
+      <mat-card-title>{{ hotel.name }}</mat-card-title>
+      <mat-card-subtitle>Gyula</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <img [src]="`https://picsum.photos/400?random=${hotel.id + 1}`" alt="Hotel Image" />
+      <p>Ár: {{ hotel.pricePerNight }} HUF / fő / éj</p>
+      <p>
+        Nyitva: {{ hotel.openingDate | date }} -
+        {{ hotel.closingDate | date }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a routerLink="/hotel-detail/{{ hotel.id }}" mat-button>SZERKESZTÉS</a>
+    </mat-card-actions>
+  </mat-card>
+  }
+
+<!-- <div>Infinite Scroll</div>
+<div class="items">
+  @for (item of hotels$ | async; track item) {
+  <b>ID: </b> {{ item.id }}<br />
+  <b>Title: </b>{{ item.title }}<br />
+  <img src="{{ item.thumbnailUrl }}" alt="" />
+  <br />
+  <br />
+  <br />
+  }
+</div> -->

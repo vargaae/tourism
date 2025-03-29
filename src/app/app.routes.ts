@@ -1,7 +1,15 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'hotels', pathMatch: 'full' },
+  { path: '', redirectTo: 'hotel-list', pathMatch: 'full' },
+// TODO: CLEAN UP if it's ready:
+  {
+    path: 'hotel-list',
+    loadComponent: () =>
+      import('./hotels/infinite-scroll/infinite-scroll.component').then(
+        (mod) => mod.InfiniteScrollComponent
+      ),
+  },
   {
     path: 'home',
     loadComponent: () =>
@@ -30,17 +38,17 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'hotels',
+    path: 'listx',
     loadComponent: () =>
       import('./hotels/hotel-list/hotel-list.component').then(
         (mod) => mod.HotelListComponent
       ),
   },
   {
-    path: 'create-hotel',
+    path: 'hotel-detail/:id',
     loadComponent: () =>
-      import('./hotels/create-hotel/create-hotel.component').then(
-        (mod) => mod.CreateHotelComponent
+      import('./hotels/hotel-detail/hotel-detail.component').then(
+        (mod) => mod.HotelDetailComponent
       ),
   },
 ];

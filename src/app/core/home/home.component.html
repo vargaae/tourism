@@ -1,1 +1,107 @@
-<p>home works!</p>
+<mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">hotel</mat-icon>
+        Hotels
+      </ng-template>
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Hotel</mat-card-title>
+          <mat-card-subtitle>List</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="https://imgservice.rentbyowner.com/1920x775/static/common/property-type-location/vacation-rentals.jpg"
+          alt="Hotels"
+        />
+        <mat-card-content>
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Search for a City</mat-label>
+              <input
+                type="text"
+                placeholder="Pick one"
+                aria-label="Search City"
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                @for (option of filteredOptions | async; track option) {
+                <mat-option [value]="option">{{ option }}</mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">dashboard</mat-icon>
+        Profile
+      </ng-template>
+  
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>USER PROFILE</mat-card-title>
+          <mat-card-subtitle>Dashboard</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="https://media.istockphoto.com/id/1447180306/photo/woman-enjoys-magnificent-view-from-hotel-window.jpg?s=612x612&w=0&k=20&c=tYi7l7OmNUrceo6neAHBpqrk9uVO4UTRjodqpOHeIyA="
+          alt="Hotels"
+        />
+        <mat-card-content>
+          <app-dashboard />
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">search</mat-icon>
+        SEARCH ACCOMODATION
+      </ng-template>
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Search</mat-card-title>
+          <mat-card-subtitle>Accomodation</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="https://imgservice.rentbyowner.com/1920x775/static/common/property-type-location/vacation-rentals.jpg"
+          alt="Hotels"
+        />
+        <mat-card-content>
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Search for a City</mat-label>
+              <input
+                type="text"
+                placeholder="Pick one"
+                aria-label="Search City"
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                @for (option of filteredOptions | async; track option) {
+                <mat-option [value]="option">{{ option }}</mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+  

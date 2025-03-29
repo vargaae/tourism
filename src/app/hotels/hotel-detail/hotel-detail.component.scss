@@ -1,0 +1,44 @@
+.back-button-container {
+  display: flex;
+  margin: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin__details_card {
+  width: 95dvw;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  // max-height: 90vh;
+  overflow-y: scroll;
+  text-align: center;
+  @media screen and (min-width: 810px) {
+    max-width: 600px;
+  }
+}
+
+.admin__details_header-image {
+  background-image: url("https://thumbs.dreamstime.com/b/luxury-hotel-crown-key-letter-h-monogram-logo-laurel-elegant-beautiful-round-vector-emblem-sign-royalty-restaurant-97215514.jpg");
+  background-size: cover;
+}
+
+.admin__details_form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.admin__details_full-width {
+  width: 100%;
+}
+
+mat-form-field, mat-date-range-input {
+  width: 100%;
+}
+
+mat-card-actions {
+  display: block;
+}

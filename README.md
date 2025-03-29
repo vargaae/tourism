@@ -29,7 +29,6 @@ This is a tourism web application built with **Angular v19.2.4**. The applicatio
 - [RxJS](https://rxjs.dev/) - Reactive programming
 - [TypeScript](https://www.typescriptlang.org/) - Strongly typed programming language
 - [Angular Material](https://material.angular.io/) - UI component library
-- [Leaflet](https://leafletjs.com/) - Map integration
 - [Firebase](https://firebase.google.com/) - Backend as a service (optional)
 
 ## Installation
@@ -56,7 +55,6 @@ To run this application locally, you need to have [Node.js](https://nodejs.org/)
    Example `.env`:
 
    ```bash
-   API_KEY=your-map-api-key
    FIREBASE_API_KEY=your-firebase-api-key
    ```
 

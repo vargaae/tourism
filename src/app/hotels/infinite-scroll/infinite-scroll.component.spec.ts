@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateHotelComponent } from './create-hotel.component';
+import { InfiniteScrollComponent } from './infinite-scroll.component';
 
-describe('CreateHotelComponent', () => {
-  let component: CreateHotelComponent;
-  let fixture: ComponentFixture<CreateHotelComponent>;
+describe('InfiniteScrollComponent', () => {
+  let component: InfiniteScrollComponent;
+  let fixture: ComponentFixture<InfiniteScrollComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateHotelComponent]
+      imports: [InfiniteScrollComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateHotelComponent);
+    fixture = TestBed.createComponent(InfiniteScrollComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

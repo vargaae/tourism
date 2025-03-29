@@ -1,42 +1,46 @@
-import {OnInit, ChangeDetectionStrategy, Component } from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {AsyncPipe} from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-
+import { OnInit, ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { DashboardComponent } from '../../auth/dashboard/dashboard.component';
+import { HotelService } from '../../service/hotel.service';
+
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { Hotel } from '../../shared/models/hotel.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-hotel-list',
-  imports: [SharedModule, DashboardComponent,     FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatAutocompleteModule,
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
     ReactiveFormsModule,
-    AsyncPipe,],
+    InfiniteScrollDirective,
+  ],
   templateUrl: './hotel-list.component.html',
   styleUrl: './hotel-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HotelListComponent implements OnInit {
-  myControl = new FormControl('');
-  options: string[] = ['City One', 'City Two', 'City Three'];
-  filteredOptions: Observable<string[]> | undefined;
+  // obsArray: BehaviorSubject<Hotel[]> = new BehaviorSubject<Hotel[]>([]);
+  // hotels$: Observable<Hotel[]> = this.obsArray.asObservable();
+  hotels$: Hotel[] = [];
+  offset = 0;
+  limit = 50;
+
+  constructor(private hotelService: HotelService) {}
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+    this.loadHotels();
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  loadHotels() {
+    this.hotelService.getHotels(this.offset, this.limit).subscribe((data) => {
+      this.hotels$ = [...this.hotels$, ...data];
+      this.offset += this.limit;
+    });
+  }
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  onScroll() {
+    this.loadHotels();
   }
 }
